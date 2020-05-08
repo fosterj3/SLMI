@@ -7,11 +7,8 @@ output: html_document
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-library(lubridate)
-library(scales)
 library(timevis)
 library(vistime)
-library(ggrepel)
 ```
 
 ```{r,include=FALSE}
