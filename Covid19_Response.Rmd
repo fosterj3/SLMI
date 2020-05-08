@@ -1,0 +1,107 @@
+---
+title: "WA COVID Response"
+author: "Lamar Foster"
+date: "5/6/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(lubridate)
+library(scales)
+library(timevis)
+library(vistime)
+library(ggrepel)
+```
+
+```{r,include=FALSE}
+#Create Dataframe of timeline
+
+Date <-  as.Date(c("2020-02-26", "2020-02-28", "2020-03-03", "2020-03-06", "2020-03-13", "2020-03-17", "2020-03-18", "2020-03-20", "2020-03-23", "2020-03-23", "2020-04-06", "2020-04-07", "2020-04-08", "2020-04-15", "2020-04-21", "2020-04-27", "2020-03-03"))
+
+Source <- c("OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI","OSPI", 'Northshore School District')
+
+Title <- c('Letter to Superintendents', 
+          'Preparation for COVID-19 Outbreak', 
+          'Further COVID-19 Guidance', 
+          'Online Learning Guidance',
+          'Guidance for Long-term School Closures #1', 
+          'Superintendents and Labor Leaders Letter', 
+          'Guidance LSC #2', 
+          'Guidance LSC #3', 
+          'Guidance LSC #4', 
+          'Guidance LSC #5', 
+          'Continuous Learning 2020', 
+          'Inclusionary Practices Doc', 
+          'Guidance LSC #6', 
+          'Guidance LSC #7', 
+          'Student Learning & Grading Guidance', 
+          'Supporting English Learners',
+          'Staff remote learning PD')
+
+df <- data.frame(Date, Source, Title)
+
+df1 <- df %>% 
+  arrange(Date)
+```
+
+```{r, include = F}
+#Create timeline with timevis
+df2 <- data.frame(
+  id = 1:17,
+  content = c('Letter to Superintendents', 
+          'Preparation for COVID-19 Outbreak', 
+          'Further COVID-19 Guidance', 
+          'Online Learning Guidance',
+          'Guidance for Long-term School Closures #1', 
+          'Superintendents and Labor Leaders Letter', 
+          'Guidance LSC #2', 
+          'Guidance LSC #3', 
+          'Guidance LSC #4', 
+          'Guidance LSC #5', 
+          'Continuous Learning 2020', 
+          'Inclusionary Practices Doc', 
+          'Guidance LSC #6', 
+          'Guidance LSC #7', 
+          'Student Learning & Grading Guidance', 
+          'Supporting English Learners',
+          'Staff remote learning PD'),
+  start = c("2020-02-26", 
+            "2020-02-28", 
+            "2020-03-03", 
+            "2020-03-06", 
+            "2020-03-13", 
+            "2020-03-17", 
+            "2020-03-18", 
+            "2020-03-20", 
+            "2020-03-23", 
+            "2020-03-23", 
+            "2020-04-06", 
+            "2020-04-07", 
+            "2020-04-08", 
+            "2020-04-15", 
+            "2020-04-21", 
+            "2020-04-27", 
+            "2020-03-03"),
+  end = c(NA),
+  options = list(editable = T, height = "200px")
+)
+
+```
+
+```{r}
+timevis(df2)
+```
+
+
+
+```{r}
+#Create timeline using vistime 
+df3 <-  data.frame(event = Title, start = Date, group = Source)
+
+vistime(df3, title = "Washington State COVID-19 Response Timeline",  optimize_y = F, show_labels = F)
+
+
+
+```
+
